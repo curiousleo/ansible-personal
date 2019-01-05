@@ -10,4 +10,4 @@ timezone: Europe/London
 
 ssd_scheduler: mq-deadline
 
-vbox_guest: false
+qemu_guest: false

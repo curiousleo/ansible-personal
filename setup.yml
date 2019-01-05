@@ -14,5 +14,3 @@
   - import_tasks: tasks/terminal.yml
   - import_tasks: tasks/aur.yml
   - import_tasks: tasks/desktop.yml
-  - import_tasks: tasks/vbox_guest.yml
-    when: vbox_guest
