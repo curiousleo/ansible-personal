@@ -1,0 +1,21 @@
+---
+- name: Create group vboxmnt
+  group: name=vboxmnt
+
+- name: Add local users to group vboxmnt
+  user: name={{ item }} groups=vboxmnt append=yes
+  with_items: '{{ users }}'
+
+- name: Register vboxmnt GID
+  shell: 'getent group vboxmnt | cut -d: -f3'
+  register: gid
+  changed_when: false
+
+- name: Install VirtualBox guest modules
+  pacman: name=virtualbox-guest-modules-arch
+
+- name: Create mount point for shared folder
+  file: dest=/mnt/shared state=directory
+
+- name: Set up mount for shared folder
+  mount: src=shared path=/mnt/shared fstype=vboxsf opts="rw,users,noauto,gid={{ gid.stdout }}" state=present

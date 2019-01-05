@@ -1,0 +1,13 @@
+---
+users:
+- leo
+
+users_including_root:
+- root
+- leo
+
+timezone: Europe/London
+
+ssd_scheduler: mq-deadline
+
+vbox_guest: false

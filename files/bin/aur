@@ -1,0 +1,20 @@
+#!/usr/bin/env sh -e
+
+pkg=$1
+
+temp=$(mktemp -d)
+
+cd "$temp"
+
+git clone http://aur.archlinux.org/"$pkg".git
+
+cd "$pkg"
+
+chown -R aurbuild "$temp"
+sudo -u aurbuild makepkg -s --noconfirm
+pacman --noconfirm -U *.pkg.tar.xz
+
+cd /
+
+rm -rf "$temp"
+

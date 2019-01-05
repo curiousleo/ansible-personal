@@ -1,0 +1,5 @@
+---
+- name: Install sway
+  aur: name=sway-git
+  become: yes
+  become_user: aurbuild

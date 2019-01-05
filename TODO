@@ -1,0 +1,8 @@
+- wireshark + user
+- j4-dmenu-desktop
+- sway
+- fontconfig
+- microcode
+
+Vim
+- YCM: git submodule update --init --recursive && python3 install.py

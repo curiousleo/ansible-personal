@@ -1,0 +1,7 @@
+---
+- name: Install command line utilities
+  pacman:
+    name:
+    - fzf
+    - fd
+    - ripgrep

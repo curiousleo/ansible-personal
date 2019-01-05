@@ -1,0 +1,5 @@
+root  ALL=(ALL) ALL
+%sudo ALL=(ALL) ALL
+
+# Allow build user to access pacman
+aurbuild ALL=NOPASSWD: /usr/bin/pacman *

@@ -1,0 +1,14 @@
+---
+- name: Install sudo
+  pacman: name=sudo state=present
+
+- name: Configure sudoers
+  # Alternatively use lineinfile, see https://github.com/kewlfft/ansible-aur/blob/master/README.md
+  template: src=files/etc/sudoers dest=/etc/sudoers mode=0440
+
+- name: Create sudo group
+  group: name=sudo state=present
+
+- name: Add local users to sudo group
+  user: name={{ item }} groups=sudo append=yes
+  with_items: '{{ users }}'

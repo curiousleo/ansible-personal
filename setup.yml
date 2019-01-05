@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  connection: local
+
+  vars_files:
+  - vars/common.yml
+  - "vars/{{ lookup('env', 'MACHINE') }}.yml"
+
+  tasks:
+  - import_tasks: tasks/time.yml
+  - import_tasks: tasks/locale.yml
+  - import_tasks: tasks/sudo.yml
+  - import_tasks: tasks/users.yml
+  - import_tasks: tasks/terminal.yml
+  - import_tasks: tasks/aur.yml
+  - import_tasks: tasks/desktop.yml
+  - import_tasks: tasks/vbox_guest.yml
+    when: vbox_guest
