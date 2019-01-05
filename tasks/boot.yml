@@ -1,0 +1,9 @@
+---
+- name: Install intel-ucode
+  pacman: name=intel-ucode
+
+- name: Install rEFInd
+  pacman: name=refind-efi
+
+- name: Install rEFInd into /boot
+  command: refind-install

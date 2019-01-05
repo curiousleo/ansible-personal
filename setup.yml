@@ -11,6 +11,7 @@
   - import_tasks: tasks/locale.yml
   - import_tasks: tasks/sudo.yml
   - import_tasks: tasks/users.yml
-  - import_tasks: tasks/terminal.yml
   - import_tasks: tasks/aur.yml
+  - import_tasks: tasks/terminal.yml
   - import_tasks: tasks/desktop.yml
+  - import_tasks: tasks/boot.yml
