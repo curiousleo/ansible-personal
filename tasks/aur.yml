@@ -1,6 +1,6 @@
 ---
 - name: Create user aurbuild
-  user: name=aurbuild shell=/bin/sh create_home=no
+  user: name=aurbuild shell=/bin/sh
 
 - name: Copy aur script
   copy: src=files/bin/aur dest=/usr/local/bin/aur mode=755
