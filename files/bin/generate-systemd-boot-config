@@ -1,0 +1,31 @@
+#!/usr/bin/env sh -e
+
+if (( UID )); then
+	echo 'FATAL: must be root' >&2
+	exit 2
+fi
+
+root_partition_label=${2}
+
+kernel=linux
+kernel_file=vmlinuz-${kernel}
+initrd_file=initramfs-${kernel}.img
+ucode_file=intel-ucode.img
+
+for file in "${kernel_file}" "${initrd_file}" "${ucode_file}"; do
+	if ! [[ -f "/boot/${file}" ]]; then
+		printf 'FATAL: %s does not exist\n' "${file}" >&2
+		exit 1
+	fi
+done
+
+root_partition_type="$(blkid --match-token LABEL=${root_partition_label} --match-type TYPE)"
+kernel_params="root=LABEL=${root_partition_label} rootfstype=${root_partition_type}"
+
+cat << EOF
+title Arch
+linux /${kernel_file}
+initrd /${ucode_file}
+initrd /${initrd_file}
+options ${extra_kernel_params} ${kernel_params}
+EOF

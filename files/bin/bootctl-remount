@@ -1,0 +1,7 @@
+#!/usr/bin/env sh -e
+
+# Mount efivars as rw for bootctl, but no longer
+
+trap 'mount -o remount efivars' 0
+mount -o remount,rw efivars
+bootctl "$@"
