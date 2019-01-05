@@ -2,6 +2,7 @@
 - name: Install command line utilities
   pacman:
     name:
-    - fzf
     - fd
+    - fzf
     - ripgrep
+    - tmux
