@@ -3,6 +3,7 @@
   pacman:
     name:
     - aria2
+    - bash-completion
     - dstat
     - fd
     - fzf
