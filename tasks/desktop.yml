@@ -3,3 +3,32 @@
   aur: name=sway-git
   become: yes
   become_user: aurbuild
+
+- name: Install document utilities (AUR)
+  aur: name=zotero
+
+- name: Install terminal emulator
+  pacman: name=alacritty
+
+- name: Install document viewer
+  pacman: name=mupdf
+
+- name: Install browser
+  pacman:
+    name:
+    - firefox
+    - firefox-i18n-de
+    - firefox-i18n-en-gb
+    - firefox-i18n-en-us
+    # Add-ons are synchronised via the Firefox Account
+    #- firefox-decentraleyes
+    #- firefox-extension-https-everywhere
+    #- firefox-extension-privacybadger
+    #- firefox-referer-control
+    #- firefox-ublock-origin
+
+- name: Install file manager
+  pacman:
+    name:
+    - gvfs
+    - pcmanfm-gtk3

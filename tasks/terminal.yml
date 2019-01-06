@@ -2,6 +2,8 @@
 - name: Install command line utilities
   pacman:
     name:
+    - aria2
+    - dstat
     - fd
     - fzf
     - ripgrep
