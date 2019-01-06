@@ -1,11 +1,46 @@
 ---
 - name: Install sway
-  aur: name=sway-git
+  aur: name=sway-git skip_installed=yes
   become: yes
   become_user: aurbuild
 
+- name: Install acpilight (xbacklight replacement)
+  aur: name=acpilight skip_installed=yes
+  become: yes
+  become_user: aurbuild
+
+- name: Create group video
+  group: name=video state=present
+
+- name: Add local users to the video group
+  user: name={{ item }} groups=video append=yes
+  with_items: '{{ users }}'
+
+- name: Copy udev settings for acpilight
+  copy: src=files/etc/udev/90-backlight.rules dest=/etc/udev/rules.d/90-backlight.rules mode=644
+
+- name: Install redshift for Wayland
+  aur: name=redshift-wayland-git skip_installed=yes
+  become: yes
+  become_user: aurbuild
+
+- name: Copy redshift service definition
+  copy: src=files/lib/systemd/redshift.service dest=/usr/lib/systemd/user/redshift.service mode=644
+  register: redshift
+
+  # FIXME: This does not seem to work properly. The service is started without error but there is no red tint.
+- name: Enable redshift service
+  command: systemctl --user --global enable redshift.service
+  when: redshift.changed
+  # systemd: name=redshift.service enabled=yes scope=global
+
+- name: Install dmenu
+  pacman: name=dmenu
+
 - name: Install document utilities (AUR)
   aur: name=zotero
+  become: yes
+  become_user: aurbuild
 
 - name: Install terminal emulator
   pacman: name=alacritty
@@ -32,3 +67,10 @@
     name:
     - gvfs
     - pcmanfm-gtk3
+
+- name: Install sound utilities
+  pacman:
+    name:
+    - pulseaudio
+    - playerctl
+    - alsa-utils

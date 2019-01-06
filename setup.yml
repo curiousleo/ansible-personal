@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   connection: local
+  become: yes
 
   vars_files:
   - vars/common.yml
@@ -13,5 +14,10 @@
   - import_tasks: tasks/users.yml
   - import_tasks: tasks/aur.yml
   - import_tasks: tasks/terminal.yml
+  - include_tasks: tasks/dotfiles.yml
+    with_items:
+    - leo
+    loop_control:
+      loop_var: user
   - import_tasks: tasks/desktop.yml
   - import_tasks: tasks/boot.yml

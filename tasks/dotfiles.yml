@@ -1,0 +1,32 @@
+---
+- name: Check out dotfiles for {{ user }}
+  become: yes
+  become_user: '{{ user }}'
+  git: repo=git://github.com/curiousleo/dotfiles.git dest=~{{ user }}/.dotfiles bare=yes accept_hostkey=yes update=no
+  register: clone
+
+- name: Configure dotfiles repo (1)
+  when: clone.changed
+  become: yes
+  become_user: '{{ user }}'
+  git_config: repo=~{{ user }}/.dotfiles scope=local name=core.bare value=false
+
+- name: Configure dotfiles repo (2)
+  when: clone.changed
+  become: yes
+  become_user: '{{ user }}'
+  git_config: repo=~{{ user }}/.dotfiles scope=local name=core.worktree value=~{{ user }}/
+
+- name: Configure dotfiles repo (3)
+  when: clone.changed
+  become: yes
+  become_user: '{{ user }}'
+  git_config: repo=~{{ user }}/.dotfiles scope=local name=status.showUntrackedFiles value=no
+
+- name: Force checkout
+  when: clone.changed
+  become: yes
+  become_user: '{{ user }}'
+  command: git checkout --force
+  args:
+    chdir: ~{{ user }}/.dotfiles
