@@ -1,0 +1,13 @@
+---
+- name: Install docker
+  pacman: name=docker
+
+- name: Start and enable docker service
+  systemd: name=docker.service state=started enabled=yes
+
+- name: Create group docker
+  group: name=docker state=present
+
+- name: Add local users to docker group
+  user: name={{ item }} groups=docker append=yes
+  with_items: '{{ users }}'

@@ -1,0 +1,13 @@
+[Unit]
+Description=Pacman mirrorlist update
+Documentation=https://wiki.archlinux.org/index.php/Reflector
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/reflector \
+    --age 6 --latest 30 --number 20 --sort rate \
+    --protocol http --protocol https \
+    --country 'United Kingdom' --country 'Germany' \
+    --save /etc/pacman.d/mirrorlist

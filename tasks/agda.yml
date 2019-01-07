@@ -1,0 +1,12 @@
+---
+- name: Install Agda
+  pacman: name=agda
+
+- name: Install Emacs
+  pacman: name=emacs
+
+# This errors out unfortunately - users will have to run 'agda-mode setup' manually.
+#- name: Set up Agda mode
+#  command: agda-mode setup
+#  become_user: '{{ item }}'
+#  with_items: '{{ users }}'

@@ -21,3 +21,6 @@
       loop_var: user
   - import_tasks: tasks/desktop.yml
   - import_tasks: tasks/boot.yml
+  - import_tasks: tasks/reflector.yml
+  - import_tasks: tasks/agda.yml
+  - import_tasks: tasks/docker.yml

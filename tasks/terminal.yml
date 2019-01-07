@@ -2,14 +2,24 @@
 - name: Install command line utilities
   pacman:
     name:
+    - acpi
+    - agda
     - aria2
     - bash-completion
     - dstat
     - fd
     - fzf
+    - htop
+    - python-virtualenv
     - ripgrep
     - tmux
     - vim
+
+- name: Install command line utilities (AUR)
+  aur:
+    name:
+    - direnv
+  become_user: aurbuild
 
 - name: Install mono (requirement for vim-youcompleteme-git)
   pacman: name=mono
