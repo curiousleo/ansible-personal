@@ -10,3 +10,10 @@
     - ripgrep
     - tmux
     - vim
+
+- name: Install mono (requirement for vim-youcompleteme-git)
+  pacman: name=mono
+
+- name: Install YouCompleteMe
+  aur: name=vim-youcompleteme-git skip_installed=yes
+  become_user: aurbuild
