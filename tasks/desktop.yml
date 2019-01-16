@@ -1,8 +1,6 @@
 ---
-- name: Install sway
-  aur: name=sway-git skip_installed=yes
-  become: yes
-  become_user: aurbuild
+- name: Install i3
+  pacman: name=i3-wm
 
 - name: Install acpilight (xbacklight replacement)
   aur: name=acpilight skip_installed=yes
@@ -19,9 +17,8 @@
 - name: Copy udev settings for acpilight
   copy: src=files/etc/udev/90-backlight.rules dest=/etc/udev/rules.d/90-backlight.rules mode=644
 
-- name: Install redshift for Wayland
-  aur: name=redshift-wayland-git skip_installed=yes
-  become: yes
+- name: Install redshift
+  aur: name=redshift-minimal skip_installed=yes
   become_user: aurbuild
 
 - name: Copy redshift service definition
@@ -48,13 +45,21 @@
 - name: Install document viewer
   pacman: name=mupdf
 
+- name: Install image viewer
+  pacman: name=gpicview-gtk3
+
+- name: Install archiver
+  pacman: name=xarchiver
+
 - name: Install browser
   pacman:
     name:
+    - chromium
     - firefox
     - firefox-i18n-de
     - firefox-i18n-en-gb
     - firefox-i18n-en-us
+    - libu2f-host
     # Add-ons are synchronised via the Firefox Account
     #- firefox-decentraleyes
     #- firefox-extension-https-everywhere
@@ -74,3 +79,10 @@
     - pulseaudio
     - playerctl
     - alsa-utils
+
+- name: Create /etc/environment.d/
+  file: path=/etc/environment.d state=directory mode=0755
+
+- name: HiDPI configuration
+  when: hidpi
+  copy: src=files/etc/environment.d/90-hidpi.conf dest=/etc/environment.d/90-hidpi.conf mode=644

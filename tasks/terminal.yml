@@ -9,10 +9,13 @@
     - dstat
     - fd
     - fzf
+    - dos2unix
     - htop
     - python-virtualenv
     - ripgrep
     - tmux
+    - unzip
+    - tree
     - vim
 
 - name: Install command line utilities (AUR)
@@ -20,6 +23,12 @@
     name:
     - direnv
   become_user: aurbuild
+
+- name: Install Terminus tty font
+  pacman: name=terminus-font
+
+- name: Set up tty font and keymap
+  copy: src=files/etc/vconsole.conf dest=/etc/vconsole.conf mode=644
 
 - name: Install mono (requirement for vim-youcompleteme-git)
   pacman: name=mono

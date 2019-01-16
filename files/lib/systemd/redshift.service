@@ -4,7 +4,14 @@ Documentation=http://jonls.dk/redshift/
 After=display-manager.service
 
 [Service]
-ExecStart=/usr/bin/redshift -m wayland
+# Set position explicitly so we don't have to use geoclue, which requires an internet connection.
+# TODO: Use template variables for location.
+# TODO: Use geoclue + a location cache for when there is no internet connection.
+ExecStart=/usr/bin/redshift \
+    -m randr \
+    -b 1.0:0.7 \
+    -l 50:0 \
+    -t 4500:2000
 Restart=always
 
 [Install]
